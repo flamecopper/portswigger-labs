@@ -34,7 +34,9 @@ Reference: https://portswigger.net/web-security/xxe/lab-exploiting-xxe-to-perfor
 2. Insert the following external entity definition in between the XML declaration and the ``stockCheck`` element:
 ```
 <!DOCTYPE test [ <!ENTITY xxe SYSTEM "http://169.254.169.254/"> ]>
-```
+
+<img width="1132" alt="image" src="https://user-images.githubusercontent.com/1225583/224549574-3c06c3cd-2547-408a-a30f-807c17176963.png">```
+
 3. Replace the ``productId`` number with a reference to the external entity: ``&xxe;``. The response should contain "Invalid product ID:" followed by the response from the metadata endpoint, which will initially be a folder name.
 4. Iteratively update the URL in the DTD to explore the API until you reach ``/latest/meta-data/iam/security-credentials/admin``. This should return JSON containing the ``SecretAccessKey``.
 
